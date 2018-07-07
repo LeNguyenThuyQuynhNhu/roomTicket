@@ -1,0 +1,13 @@
+{
+  "__comment": "file cau hinh json",
+  "PORT": 4000,
+
+  "mongodb": {
+    "user": "quan",
+    "password": "quan1511",
+    "host": "@ds227821.mlab.com:27821",
+    "database": "nha_xe"
+  },
+  "rentDefault": 100,
+  "dateNumberRoom": 10
+}
