@@ -59,14 +59,14 @@ function deleteRoomTicket(req, res, next){
     status : true,
     employeeName : " ",
     route : " ",
-    timeStartService : " ",
-    timeEndService : " "
+    timeStartService :0,
+    timeEndService :0
   };
-  roomticketController.createUpdateRoomTicket(request).then(function(response){
-    res.send(response);
-  }).catch(function(err){
-    next(err);
-  });
+    roomticketController.createUpdateRoomTicket(request).then(function(response){
+      res.send(response);
+    }).catch(function(err){
+      next(err);
+    });
 }
 // function createDatabase(req,res,next){
 //   roomticketController.createDatabase().then(function(response){
