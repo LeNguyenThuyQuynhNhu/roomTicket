@@ -1,14 +1,13 @@
 var router = require("express").Router();
-var message = require("./../utils/message");
 var roomticketController = require("../controller/roomticket.controller");
 
 module.exports = () => {
-  router.get("/getallroomticket", getAllRoomTicket);
+  router.get("/", getAllRoomTicket);
   router.get("/:numberroom", getRoomTicket);
-  router.post("/createRoom", createUpdateRoomTicket);
-  router.post("/updateRoom",createUpdateRoomTicket);
-  router.delete("/deleteRoom",deleteRoomTicket);
-  //router.post("/",createDatabase);
+  router.post("/", createRoomTicket);
+  router.put("/", updateRoomTicket);
+  router.delete("/", deleteRoomTicket);
+  router.post("/createDatabase",createDatabase); // tạo tổng các phòng
   return router;
 };
 
@@ -37,41 +36,64 @@ function getRoomTicket(req, res, next) {
       next(err);
     });
 }
-function createUpdateRoomTicket(req,res,next){
-  var request ={
-    numberroom : req.body.numberroom,
-    status : false,
-    employeeName : req.body.employeeName,
-    route : req.body.route,
-    timeStartService : req.body.timeStartService,
-    timeEndService : req.body.timeEndService
+function updateRoomTicket(req, res, next) {
+  var request = {
+    numberroom: req.body.numberroom,
+    status: false,
+    companyName: req.body.companyName,
+    employeeName: req.body.employeeName,
+    route: req.body.route,
+    timeStartService: req.body.timeStartService,
+    timeEndService: req.body.timeEndService,
+    timeEndRecent : new Date(req.body.timeEndRecent) // không cho update ngày bắt đầu thuê
   };
-  roomticketController.createUpdateRoomTicket(request).then(function(response){
+  roomticketController.updateRoomTicket(request)
+    .then(function(response) {
+      res.send(response);
+    })
+    .catch(function(err) {
+      next(err);
+    });
+}
+
+function deleteRoomTicket(req, res, next) {
+  var request = {
+    numberroom: req.body.numberroom
+  };
+  roomticketController.deleteRoomTicket(request)
+    .then(function(response) {
+      res.send(response);
+    })
+    .catch(function(err) {
+      next(err);
+    });
+}
+
+function createRoomTicket(req, res, next) {
+  var request = {
+    numberroom: req.body.numberroom,
+    status: false,
+    companyName: req.body.companyName,
+    employeeName: req.body.employeeName,
+    route: req.body.route,
+    timeStartService: req.body.timeStartService,
+    timeEndService: req.body.timeEndService,
+    timeStartRecent : new Date(),
+    timeEndRecent : new Date(req.body.timeEndRecent)
+    
+  };
+  roomticketController.createRoomTicket(request)
+    .then(function(response) {
+      res.send(response);
+    })
+    .catch(function(err) {
+      next(err);
+    });
+}
+function createDatabase(req,res,next){
+  roomticketController.createDatabase().then(function(response){
     res.send(response);
   }).catch(function(err){
     next(err);
   });
 }
-
-function deleteRoomTicket(req, res, next){
-  var request ={
-    numberroom : req.body.numberroom,
-    status : true,
-    employeeName : " ",
-    route : " ",
-    timeStartService :0,
-    timeEndService :0
-  };
-    roomticketController.createUpdateRoomTicket(request).then(function(response){
-      res.send(response);
-    }).catch(function(err){
-      next(err);
-    });
-}
-// function createDatabase(req,res,next){
-//   roomticketController.createDatabase().then(function(response){
-//     res.send(response);
-//   }).catch(function(err){
-//     next(err);
-//   });
-// }

@@ -3,14 +3,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema; //dinh nghia 1 kieu cau truc cho mongo
 
 var ticketSchema = new Schema({
-  // col: {
-  //   type: Number,
-  //   required: true
-  // },
-  // row: {
-  //   type: Number,
-  //   required: true
-  // },
   numberroom:{
     type: Number,
     required: true
@@ -20,21 +12,26 @@ var ticketSchema = new Schema({
     required: true,
     default:true
   },
+  companyName:{
+    type: String
+  },
   employeeName: {
-    type: String,
-    required: true
+    type: String
   },
   route:{// tuyến đường
-    type: String,
-    required: true
+    type: String
   },
   timeStartService:{ // làm việc từ mấy giờ
-    type :Number,
-    required: true
+    type :Number
   },
   timeEndService:{ // tới mấy h
-    type :Number,
-    required: true
+    type :Number
+   }, 
+   timeStartRecent:{
+     type: Date
+  },
+  timeEndRecent:{
+    type: Date
   }
 });
 
