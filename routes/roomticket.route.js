@@ -45,7 +45,7 @@ function updateRoomTicket(req, res, next) {
     route: req.body.route,
     timeStartService: req.body.timeStartService,
     timeEndService: req.body.timeEndService,
-    timeEndRecent : new Date(req.body.timeEndRecent) // không cho update ngày bắt đầu thuê
+    timeEndRecent :new Date(req.body.timeEndRecent) // không cho update ngày bắt đầu thuê
   };
   roomticketController.updateRoomTicket(request)
     .then(function(response) {
